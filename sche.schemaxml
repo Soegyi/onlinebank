@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="latin1" collation="latin1_swedish_ci">onlinebank</database>
+</source>
+<canvas zoom="75">
+<tables>
+<table name="account" view="colnames">
+<left>389</left>
+<top>80</top>
+<width>97</width>
+<height>120</height>
+<sql_create_table>CREATE TABLE `account` (
+  `AccountNo` varchar(30) NOT NULL,
+  `OpenDate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `Balance` double DEFAULT NULL,
+  `userid` int(11) DEFAULT NULL,
+  `AccountTypeID` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`AccountNo`),
+  KEY `userid` (`userid`),
+  KEY `AccountTypeID` (`AccountTypeID`),
+  CONSTRAINT `account_ibfk_2` FOREIGN KEY (`AccountTypeID`) REFERENCES `accounttype` (`AccountTypeID`),
+  CONSTRAINT `account_ibfk_3` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="accounttype" view="colnames">
+<left>737</left>
+<top>461</top>
+<width>111</width>
+<height>82</height>
+<sql_create_table>CREATE TABLE `accounttype` (
+  `AccountTypeID` varchar(30) NOT NULL,
+  `AccountTypeName` varchar(40) NOT NULL,
+  PRIMARY KEY (`AccountTypeID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="branch" view="colnames">
+<left>156</left>
+<top>147</top>
+<width>86</width>
+<height>82</height>
+<sql_create_table>CREATE TABLE `branch` (
+  `BranchCode` varchar(30) NOT NULL,
+  `BranchName` varchar(50) NOT NULL,
+  PRIMARY KEY (`BranchCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="cards" view="colnames">
+<left>0</left>
+<top>33</top>
+<width>84</width>
+<height>107</height>
+<sql_create_table>CREATE TABLE `cards` (
+  `CardNo` varchar(40) NOT NULL,
+  `OwnerName` varchar(50) NOT NULL,
+  `Balance` double NOT NULL,
+  `BranchCode` varchar(30) NOT NULL,
+  PRIMARY KEY (`CardNo`),
+  KEY `BranchCode` (`BranchCode`),
+  CONSTRAINT `cards_ibfk_1` FOREIGN KEY (`BranchCode`) REFERENCES `branch` (`BranchCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="transactiontype" view="colnames">
+<left>878</left>
+<top>136</top>
+<width>127</width>
+<height>82</height>
+<sql_create_table>CREATE TABLE `transactiontype` (
+  `TransactionTypeID` varchar(10) NOT NULL,
+  `TransactionTypeName` varchar(50) NOT NULL,
+  PRIMARY KEY (`TransactionTypeID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="user" view="colnames">
+<left>290</left>
+<top>273</top>
+<width>84</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `user` (
+  `userid` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) DEFAULT NULL,
+  `password` varchar(40) DEFAULT NULL,
+  `NRC` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  `phono` varchar(40) DEFAULT NULL,
+  `BranchCode` varchar(30) NOT NULL,
+  `OwnerName` varchar(50) NOT NULL,
+  `DateOfBirth` date DEFAULT NULL,
+  `Role` varchar(30) NOT NULL,
+  PRIMARY KEY (`userid`),
+  KEY `BranchCode` (`BranchCode`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`BranchCode`) REFERENCES `branch` (`BranchCode`)
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="deposit" view="colnames">
+<left>558</left>
+<top>13</top>
+<width>94</width>
+<height>107</height>
+<sql_create_table>CREATE TABLE `deposit` (
+  `dpid` int(11) NOT NULL AUTO_INCREMENT,
+  `AccountNo` varchar(40) NOT NULL,
+  `Amount` double NOT NULL,
+  `DateOfDeposit` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`dpid`),
+  KEY `AccountNo` (`AccountNo`),
+  CONSTRAINT `deposit_ibfk_1` FOREIGN KEY (`AccountNo`) REFERENCES `account` (`AccountNo`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="transactions" view="colnames">
+<left>644</left>
+<top>175</top>
+<width>113</width>
+<height>133</height>
+<sql_create_table>CREATE TABLE `transactions` (
+  `TransactionID` int(11) NOT NULL AUTO_INCREMENT,
+  `TransactionTypeID` varchar(10) NOT NULL,
+  `TransactionDate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `Amount` double NOT NULL,
+  `Recepient` varchar(50) NOT NULL,
+  `AccountNo` varchar(30) NOT NULL,
+  PRIMARY KEY (`TransactionID`),
+  KEY `AccountNo` (`AccountNo`),
+  KEY `TransactionTypeID` (`TransactionTypeID`),
+  KEY `Recepient` (`Recepient`),
+  CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`TransactionTypeID`) REFERENCES `transactiontype` (`TransactionTypeID`),
+  CONSTRAINT `transactions_ibfk_3` FOREIGN KEY (`AccountNo`) REFERENCES `account` (`AccountNo`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="nrcrecepient" view="colnames">
+<left>30</left>
+<top>374</top>
+<width>84</width>
+<height>95</height>
+<sql_create_table>CREATE TABLE `nrcrecepient` (
+  `reid` int(11) NOT NULL AUTO_INCREMENT,
+  `NRC` varchar(50) NOT NULL,
+  `BranchCode` varchar(30) NOT NULL,
+  PRIMARY KEY (`reid`),
+  KEY `BranchCode` (`BranchCode`),
+  CONSTRAINT `nrcrecepient_ibfk_1` FOREIGN KEY (`BranchCode`) REFERENCES `branch` (`BranchCode`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
