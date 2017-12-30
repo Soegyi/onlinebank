@@ -342,11 +342,11 @@ HERE;
     $query = "DELETE FROM USER WHERE userid=$delusr";
     mysqli_query($connection, $query);
     $succed="User is deleted successfully !!";
-	 header("location:manage.php");
+	 //header("location:manage.php");
 }
 ?>
                              <h3>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;<span class="label label-success col-md-offset-3"><?php echo $succed ?></span></h3>
-                            <form enctype="multipart/form-data" class="form-horizontal col-lg-12" method="POST" action="#">
+                             <form enctype="multipart/form-data" class="form-horizontal col-lg-12" method="POST" action="manage.php">
                                 <table class="table table-condensed table-bordered"> 
                                     <thead> 
                                         <tr style="color: black;"> 

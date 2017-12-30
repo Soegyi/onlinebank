@@ -104,7 +104,7 @@ if (isset($_POST['btnupdateinfo'])) {
     $query2 = "UPDATE user SET OwnerName='$newowner',NRC='$newnrc' WHERE userid='$usrid'";
     mysqli_query($connection, $query2);
     $succ="User Info is successfully updated !!";
-//    header("location:updateuserinfo.php?userid=$acid");
+    //header("location:manage.php#menu2");
     
 }
 ?>
@@ -135,7 +135,7 @@ if (isset($_POST['btnupdateinfo'])) {
                             <br/>
 
 
-                            <table class="table table-condensed"> 
+                            <table class="table-responsive table-condensed"> 
                                 <thead> 
                                     <tr> 
                                         <th>AccountID</th> 

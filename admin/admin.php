@@ -5,7 +5,7 @@ session_set_cookie_params(0);
 session_start();
 $role=$_SESSION["role"];
 if (!isset($_SESSION["userID"])or ($role !="Administrator")) {
-    header("Location: login.php");
+    header("Location: ../login.php");
 }
 ?>
 <!DOCTYPE html>

@@ -1,6 +1,6 @@
 <?php
 include_once 'connect.php';
-session_set_cookie_params(0);
+//session_set_cookie_params(0);
 session_start();
 session_destroy();
 ?>
@@ -46,37 +46,40 @@ session_destroy();
 
 
 
-        <div class="container text-center">
-            <h1 class="white">LogIn to your Account</h1>
-            <h3 class="white">After login an OTP code will be sent to your email address</h3>
-
-            <form class="form-horizontal col-lg-5 col-lg-offset-3" method="POST" action="#">
+        <div class="container-fluid">
+            <h1 class="white text-center">LogIn to your Account</h1>
+            <h3 class="white text-center">After login an OTP code will be sent to your email address</h3>
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-4 col-xs-6 col-xs-offset-3">
+            <form class="form-horizontal" method="POST" action="#">
                 <div class="col-sm-10 col-sm-offset-2"><h3> <span class="label label-danger"id="message" style=" display: none">
                             *** Invalid username or password ***
                         </span></h3></div>
                 <div class="form-group">
-                    <div class="col-sm-10 col-sm-offset-2">
+                   
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></span>
                             <input type="text" class="form-control" id="inputEmail3" placeholder="username" name="username" required="">
                         </div>
-                    </div>
+                    
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-10 col-sm-offset-2">
+                    
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-lock"></span></span>
                             <input type="password" class="form-control" id="password" placeholder="password" name="password" required="">
                         </div>
-                    </div>
+                   
                 </div>
 
                 <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
+                    
                         <button type="submit" name="btnsignin"  class="btn btn-success btn-lg btn-block">Sign in</button>
                     </div>
                 </div>
             </form>
+                </div>
+            </div>
         </div>
 <?php
 error_reporting(\E_ALL ^ \E_DEPRECATED);
@@ -84,7 +87,7 @@ if (isset($_POST['btnsignin'])) {
     $user = mysqli_real_escape_string($connection, $_POST["username"]);
     $password = mysqli_real_escape_string($connection, $_POST["password"]);
     $query = mysqli_real_escape_string($connection, "SELECT userid,username,password,Role from user WHERE username=?");
-    ($stmt = mysqli_prepare($connection, $query));
+    $stmt = mysqli_prepare($connection, $query);
 
     /* bind parameters for markers */
     mysqli_stmt_bind_param($stmt, "s", $user);
