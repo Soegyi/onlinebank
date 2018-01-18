@@ -76,11 +76,12 @@ session_destroy();
                     
                         <button type="submit" name="btnsignin"  class="btn btn-success btn-lg btn-block">Sign in</button>
                     </div>
+                </form>
                 </div>
-            </form>
+            
                 </div>
             </div>
-        </div>
+        
 <?php
 error_reporting(\E_ALL ^ \E_DEPRECATED);
 if (isset($_POST['btnsignin'])) {
